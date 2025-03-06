@@ -12,5 +12,3 @@ console.log(`Resultado da subtracao entre ${num_A} e ${num_B} = ${subtracao}`);
 console.log(`Resultado da multiplicacao entre ${num_A} e ${num_B} = ${multiplicacao}`);
 console.log(`Resultado da divisao entre ${num_A} e ${num_B} = ${divisao}`);
 
-git config --global user.email "ninick120@gmail.com"
-git config --global user.name "nicolediaas"
