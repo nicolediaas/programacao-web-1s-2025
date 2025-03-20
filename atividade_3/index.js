@@ -2,31 +2,31 @@ const express = require ('express');
 const calc = require('./calculadora');
 const app = express();
 
-app.get('/operacao/somar/:num1/:num2', (req, res) => {
-    const num1 = parseFloat(req.params.num1); 
-    const num2 = parseFloat(req.params.num2); 
-    const resultado = calc.somar;  
+app.get('/operacao/somar/:a/:b', (req, res) => {
+    const a = parseFloat(req.params.a); 
+    const b = parseFloat(req.params.b); 
+    const resultado = calc.somar(a, b);  
     res.send(`Resultado da soma: ${resultado}`);
 });
 
-app.get('/operacao/subtrair/:num1/:num2', (req, res) => {
-    const num1 = parseFloat(req.params.num1); 
-    const num2 = parseFloat(req.params.num2); 
-    const resultado = calc.subtrair;  
+app.get('/operacao/subtrair/:a/:b', (req, res) => {
+    const a = parseFloat(req.params.num1); 
+    const b = parseFloat(req.params.num2); 
+    const resultado = calc.subtrair(a, b);  
     res.send(`Resultado da subtracao: ${resultado}`);
 });
 
-app.get('/operacao/multiplicar/:num1/:num2', (req, res) => {
-    const num1 = parseFloat(req.params.num1); 
-    const num2 = parseFloat(req.params.num2); 
-    const resultado = calc.multiplicar;  
+app.get('/operacao/multiplicar/:a/:b', (req, res) => {
+    const a = parseFloat(req.params.num1); 
+    const b = parseFloat(req.params.num2); 
+    const resultado = calc.multiplicar(a, b);  
     res.send(`Resultado da multiplicacao: ${resultado}`);
 });
 
-app.get('/operacao/dividir/:num1/:num2', (req, res) => {
-    const num1 = parseFloat(req.params.num1); 
-    const num2 = parseFloat(req.params.num2); 
-    const resultado = calc.dividir;  
+app.get('/operacao/dividir/:a/:b', (req, res) => {
+    const a = parseFloat(req.params.num1); 
+    const b = parseFloat(req.params.num2); 
+    const resultado = calc.dividir(a, b);  
     res.send(`Resultado da divisao: ${resultado}`);
 });
 
