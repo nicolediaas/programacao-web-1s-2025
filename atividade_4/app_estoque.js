@@ -1,59 +1,72 @@
-const itens = [];
+let itens = [];
 
 function adicionar(item){
-
-    if(validar_item(item)){
-        itens.push(item);
-        return true;
-    }
-    return false;
-}
-
-function validar_item(item){
-
     let item_valido = true;
 
     if(
-        isNaN(item.id) || 
-        item.id == null || 
-        item.id <= 0
+        !is_numerico(item.id) ||
+        is_id_cadastrado(item.id) ||
+        item.id <= 0 ||
+        !is_numerico(item.qtd) ||
+        item.qtd < 0 ||
+        item.nome.length <= 0
     ){
         item_valido = false;
     }
 
-for (let item_cadastrado in itens){
-    if(item_cadastrado.id == item.id){
-        item_valido = false;
-    }
-}
-
-if(
-    isNaN(item.qtd) || 
-    item.qtd == null || 
-    item.qtd < 0
-){
-    item_valido = false;
-}
-    if(item.nome.length < 1){
-        item_valido = false;
-    }
     if(item_valido){
         itens.push(item);
     }
+    return item_valido;
 }
 
- function listar(item){
+function listar(){
     return itens;
 }
 
+function editar(id, qtd){
+    let item_valido = true;
 
- function listar(item){
-    return itens;
+    if(
+        !is_numerico(id) ||
+        !is_id_cadastrado(id) ||
+        !is_numerico(qtd)
+    ){
+        item_valido = false;
+    }
+
+    if(item_valido){
+        itens.forEach(item_cadastrado => {
+            if(item_cadastrado.id == id){
+                item_cadastrado.qtd = qtd;
+            }
+        });
+    }
+    
+    return item_valido;
 }
 
 module.exports = {
     adicionar,
-    listar
+    listar,
+    editar
+};
+
+function is_id_cadastrado(id){
+    let id_cadastrado = false;
+    itens.forEach(item_cadastrado => {
+        if(item_cadastrado.id == id){
+            id_cadastrado = true;
+        }
+    });
+    return id_cadastrado;
+}
+
+function is_numerico(n){
+    if(isNaN(n) || n == null){
+        return false;
+    }
+    return true;
 }
 
 
