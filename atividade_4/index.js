@@ -1,54 +1,39 @@
-const express = require ('express');
-const estoque = require('./app_estoque');
-const app = express();
+const express = require('express');
+const estoque = require('./estoque');
+const app     = express();
 
 app.get('/', (req, res)=>{
-    let html = '<h1>app_estoque/h1>';
-    html += '<h3>Rotas disponiveis</h3>';
-    html += '<p>/listar - Lista todos os produtos do estoque>';
-    html += '<p>/remover/:id - Remove um produto do estoque>';
-    html += '<p>/editar/:id/:qtd - Altera a quantidade de um produto no estoque>';
-
+    let html =  '<h1>app_estoque</h1>';
+    html     += '<h3>Rotas disponíveis:</h3>';
+    html     += '<p>/adicionar/:id/:nome/:qtd</p>';
+    html     += '<p>/listar</p>';
+    html     += '<p>/remover/:id</p>';
+    html     += '<p>/editar/:id/:qtd</p>';
     res.send(html);
 });
 
-//adicionar
-app.get('/adicionar/:id/:nome/:qtd', (req, res) => {
-    const id = Number(req.params.id); 
-    const nome = req.params.nome; 
-    const qtd = Number((req.params.qtd));  
-
-    const item =  {
-        id: id,
-        nome: nome,
-        qtd: qtd
-    }
-    estoque.adicionar(item);
-    res.send(item);
-   
+app.get('/adicionar/:id/:nome/:qtd', (req, res)=>{
+    let item = {
+        id  : Number(req.params.id),
+        nome: req.params.nome,
+        qtd : Number(req.params.qtd)
+    };
+    res.send(estoque.adicionar(item));
 });
 
-//listar
-app.get('/listar', (req, res) => {
+app.get('/listar', (req, res)=>{
     res.send(estoque.listar());
 });
 
-//remover
-app.get('/remover/:id', (req, res) => {
+// /remover/:id
 
-
-
+app.get('/editar/:id/:qtd', (req, res)=>{
+    let id  = Number(req.params.id);
+    let qtd = Number(req.params.qtd);
+    res.send(estoque.editar(id, qtd));
 });
-
-//editar
-app.get('/editar/:id/:qtd', (req, res) => {
-
-
-
-});
-
 
 const PORT = 8080;
-app.listen(PORT, () => {
-    console.log('app rodando na porta ' +PORT);
+app.listen(PORT, ()=>{
+    console.log('app rodando na porta ' + PORT);
 });
